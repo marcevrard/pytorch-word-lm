@@ -1,8 +1,9 @@
 # coding: utf-8
 import argparse
-import time
 import math
 import os
+import time
+
 import torch
 import torch.nn as nn
 import torch.onnx
@@ -53,7 +54,7 @@ if torch.cuda.is_available():
     if not args.cuda:
         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
 
-device = torch.device("cuda" if args.cuda else "cpu")
+device = torch.device("cuda" if args.cuda else "cpu")   # pylint: disable=no-member
 
 ###############################################################################
 # Load data
@@ -169,9 +170,9 @@ def train():
             cur_loss = total_loss / args.log_interval
             elapsed = time.time() - start_time
             print('| epoch {:3d} | {:5d}/{:5d} batches | lr {:02.2f} | ms/batch {:5.2f} | '
-                    'loss {:5.2f} | ppl {:8.2f}'.format(
-                epoch, batch, len(train_data) // args.bptt, lr,
-                elapsed * 1000 / args.log_interval, cur_loss, math.exp(cur_loss)))
+                  'loss {:5.2f} | ppl {:8.2f}'.format(
+                      epoch, batch, len(train_data) // args.bptt, lr,
+                      elapsed * 1000 / args.log_interval, cur_loss, math.exp(cur_loss)))
             total_loss = 0
             start_time = time.time()
 
@@ -180,7 +181,8 @@ def export_onnx(path, batch_size, seq_len):
     print('The model is also exported in ONNX format at {}'.
           format(os.path.realpath(args.onnx_export)))
     model.eval()
-    dummy_input = torch.LongTensor(seq_len * batch_size).zero_().view(-1, batch_size).to(device)
+    dummy_input = (torch.LongTensor(seq_len * batch_size)           # pylint: disable=no-member
+                        .zero_().view(-1, batch_size).to(device))   # pylint: disable=bad-continuation
     hidden = model.init_hidden(batch_size)
     torch.onnx.export(model, (dummy_input, hidden), path)
 

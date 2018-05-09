@@ -37,7 +37,7 @@ class Corpus(object):
 
         # Tokenize file content
         with open(path, 'r') as f:
-            ids = torch.LongTensor(tokens)
+            ids = torch.LongTensor(tokens)  # pylint: disable=no-member
             token = 0
             for line in f:
                 words = line.split() + ['<eos>']
