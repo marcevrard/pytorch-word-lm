@@ -22,8 +22,8 @@ class RNNModel(nn.Module):
         # "Using the Output Embedding to Improve Language Models" (Press & Wolf 2016)
         # https://arxiv.org/abs/1608.05859
         # and
-        # "Tying Word Vectors and Word Classifiers: A Loss Framework for Language Modeling" (Inan et al. 2016)
-        # https://arxiv.org/abs/1611.01462
+        # "Tying Word Vectors and Word Classifiers: A Loss Framework for Language Modeling"
+        # https://arxiv.org/abs/1611.01462 (Inan et al. 2016)
         if tie_weights:
             if nhid != ninp:
                 raise ValueError('When using the tied flag, nhid must be equal to emsize')

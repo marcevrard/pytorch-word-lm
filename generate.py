@@ -8,7 +8,7 @@
 import argparse
 
 import torch
-from torch.autograd import Variable
+# from torch.autograd import Variable
 
 import data
 
@@ -39,7 +39,7 @@ if torch.cuda.is_available():
     if not args.cuda:
         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
 
-device = torch.device("cuda" if args.cuda else "cpu")
+device = torch.device("cuda" if args.cuda else "cpu")   # pylint: disable=no-member
 
 if args.temperature < 1e-3:
     parser.error("--temperature has to be greater or equal 1e-3")
@@ -51,14 +51,14 @@ model.eval()
 corpus = data.Corpus(args.data)
 ntokens = len(corpus.dictionary)
 hidden = model.init_hidden(1)
-input = torch.randint(ntokens, (1, 1), dtype=torch.long).to(device)
+input = torch.randint(ntokens, (1, 1), dtype=torch.long).to(device)     # pylint: disable=no-member
 
 with open(args.outf, 'w') as outf:
     with torch.no_grad():  # no tracking history
         for i in range(args.words):
             output, hidden = model(input, hidden)
             word_weights = output.squeeze().div(args.temperature).exp().cpu()
-            word_idx = torch.multinomial(word_weights, 1)[0]
+            word_idx = torch.multinomial(word_weights, 1)[0]    # pylint: disable=no-member
             input.fill_(word_idx)
             word = corpus.dictionary.idx2word[word_idx]
 

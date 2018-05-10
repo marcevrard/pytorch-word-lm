@@ -94,7 +94,11 @@ test_data = batchify(corpus.test, eval_batch_size)
 ###############################################################################
 
 ntokens = len(corpus.dictionary)
-model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid, args.nlayers, args.dropout, args.tied).to(device)
+model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid,
+                       args.nlayers, args.dropout, args.tied).to(device)
+
+# AttributeError: 'DataParallel' object has no attribute 'init_hidden'
+# model = torch.nn.DataParallel(model)
 
 criterion = nn.CrossEntropyLoss()
 
