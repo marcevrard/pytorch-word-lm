@@ -108,4 +108,3 @@ data/*
 !data/wikitext-2/
 !data/wikitext-103.tar.*
 models/*
-!models/model.pt

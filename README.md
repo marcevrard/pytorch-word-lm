@@ -51,7 +51,7 @@ optional arguments:
   --seed SEED           random seed (default: 1111)
   --cuda                use CUDA (default: False)
   --log-interval N      report interval (default: 200)
-  --save SAVE           path to save the final model (default: model.pt)
+  --save SAVE           path to save the final model (default: models/model.pt)
   --onnx-export ONNX_EXPORT
                         path to export the final model in onnx format
                         (default: )
