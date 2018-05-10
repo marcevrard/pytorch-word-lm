@@ -1,7 +1,9 @@
 # Word-level language modeling RNN
 
+*Project forked from <https://github.com/pytorch/examples/tree/master/word_language_model>.*
+
 This example trains a multi-layer RNN (Elman, GRU, or LSTM) on a language modeling task.
-By default, the training script uses the Wikitext-2 dataset, provided.
+By default, the training script uses the `Wikitext-2` dataset, provided.
 The trained model can then be used by the generate script to generate new text.
 
 ```bash
@@ -17,28 +19,42 @@ which will automatically use the cuDNN backend if run on CUDA with cuDNN install
 During training, if a keyboard interrupt (Ctrl-C) is received,
 training is stopped and the current model is evaluated against the test dataset.
 
-The `main.py` script accepts the following arguments:
+The `main.py` script documentation:
 
 ```bash
+usage: main.py [-h] [--data DATA] [--model MODEL] [--emsize EMSIZE]
+               [--nhid NHID] [--nlayers NLAYERS] [--lr LR] [--clip CLIP]
+               [--epochs EPOCHS] [--batch_size N] [--bptt BPTT]
+               [--dropout DROPOUT] [--tied] [--seed SEED] [--cuda]
+               [--log-interval N] [--save SAVE] [--onnx-export ONNX_EXPORT]
+
+PyTorch Wikitext-2 RNN/LSTM Language Model
+
 optional arguments:
-  -h, --help         show this help message and exit
-  --data DATA        location of the data corpus
-  --model MODEL      type of recurrent net (RNN_TANH, RNN_RELU, LSTM, GRU)
-  --emsize EMSIZE    size of word embeddings
-  --nhid NHID        number of hidden units per layer
-  --nlayers NLAYERS  number of layers
-  --lr LR            initial learning rate
-  --clip CLIP        gradient clipping
-  --epochs EPOCHS    upper epoch limit
-  --batch-size N     batch size
-  --bptt BPTT        sequence length
-  --dropout DROPOUT  dropout applied to layers (0 = no dropout)
-  --decay DECAY      learning rate decay per epoch
-  --tied             tie the word embedding and softmax weights
-  --seed SEED        random seed
-  --cuda             use CUDA
-  --log-interval N   report interval
-  --save SAVE        path to save the final model
+  -h, --help            show this help message and exit
+  --data DATA           location of the data corpus (default:
+                        ./data/wikitext-2)
+  --model MODEL         type of recurrent net (RNN_TANH, RNN_RELU, LSTM, GRU)
+                        (default: LSTM)
+  --emsize EMSIZE       size of word embeddings (default: 200)
+  --nhid NHID           number of hidden units per layer (default: 200)
+  --nlayers NLAYERS     number of layers (default: 2)
+  --lr LR               initial learning rate (default: 20)
+  --clip CLIP           gradient clipping (default: 0.25)
+  --epochs EPOCHS       upper epoch limit (default: 40)
+  --batch_size N        batch size (default: 20)
+  --bptt BPTT           sequence length (default: 35)
+  --dropout DROPOUT     dropout applied to layers (0 = no dropout) (default:
+                        0.2)
+  --tied                tie the word embedding and softmax weights (default:
+                        False)
+  --seed SEED           random seed (default: 1111)
+  --cuda                use CUDA (default: False)
+  --log-interval N      report interval (default: 200)
+  --save SAVE           path to save the final model (default: model.pt)
+  --onnx-export ONNX_EXPORT
+                        path to export the final model in onnx format
+                        (default: )
 ```
 
 With these arguments, a variety of models can be tested.
