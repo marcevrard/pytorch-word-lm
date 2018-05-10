@@ -109,3 +109,4 @@ data/*
 !data/wikitext-103.tar.*
 models/
 # models/model*
+output/
