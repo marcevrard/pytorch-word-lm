@@ -16,9 +16,8 @@ import data
 def torch_device(args):
     torch.manual_seed(args.seed)
 
-    # if torch.cuda.is_available():
-    #     if not args.cuda:
-    #         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
+    # if torch.cuda.is_available() and not args.cuda:
+    #     print("WARNING: You have a CUDA device, so you should probably run with --cuda")
 
     return torch.device("cuda" if args.cuda else "cpu") # pylint: disable=no-member
 
@@ -90,7 +89,10 @@ def main(args):
     device = torch_device(args)
 
     with open(args.checkpoint, 'rb') as f:
-        model = torch.load(f).to(device)
+        if torch.cuda.is_available():
+            model = torch.load(f).to(device)
+        else:
+            model = torch.load(f, map_location='cpu').to(device)
 
     corpus = data.Corpus(args.data)
     input_txt = 'I love that I'.split()
